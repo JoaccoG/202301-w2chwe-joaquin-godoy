@@ -1,6 +1,20 @@
-let rows = 9;
-let cols = 9;
+// -------->>> Variables globales <<<--------
+let rows = 20;
+let cols = 20;
 const width = 20;
+
+let actualGrid = [];
+let nextGrid = [];
+
+// -------->>> Eventos <<<--------
+document.addEventListener("keydown", (e) => {
+  e.preventDefault();
+  switch (e.key) {
+    case "ArrowRight":
+      nextGridStatus();
+      break;
+  }
+});
 
 // -------->>> Generar tablero <<<--------
 const generateGrid = () => {
@@ -8,9 +22,7 @@ const generateGrid = () => {
   for (let i = 0; i < rows; i++) {
     grid += "<tr>";
     for (let j = 0; j < cols; j++) {
-      grid += `<td id="cell-${
-        i + "-" + j
-      }" onmouseup="changeCellStatus(${i}, ${j})">`;
+      grid += `<td id="cell-${i}-${j}" onmouseup="changeCellStatus(${i}, ${j})">`;
       grid += "</td>";
     }
     grid += "</tr>";
@@ -26,7 +38,7 @@ const generateGrid = () => {
 
 // -------->>> Cambiar estado de células con click <<<--------
 const changeCellStatus = (i, j) => {
-  let cell = document.querySelector(`#cell-${i + "-" + j}`);
+  let cell = document.querySelector(`#cell-${i}-${j}`);
   if (cell.style.background !== "black") {
     cell.style.background = "black";
   } else {
@@ -34,35 +46,78 @@ const changeCellStatus = (i, j) => {
   }
 };
 
-// -------->>> Actualizar el tablero en cada segundo <<<--------
+// -------->>> Obtener el tablero actual <<<--------
 const getActualGrid = () => {
   actualGrid = [];
-  for (let i = 0; i < cols; i++) {
+  for (let i = 0; i < rows; i++) {
     actualGrid.push([]);
-    for (let j = 0; i < cols; i++) {
-      let cell = document.querySelector(`#cell-${i + "-" + j}`);
-      actualGrid[i][j] = cell.style.background === "black";
+    for (let j = 0; j < cols; j++) {
+      let cell = document.querySelector(`#cell-${i}-${j}`);
+      if (cell.style.background === "black") {
+        actualGrid[i][j] = true;
+      } else {
+        actualGrid[i][j] = false;
+      }
     }
   }
 };
 
-// -------->>> Contar cantidad de vecinos de cada célula <<<--------
-const countNeighbors = (x, y) => {
-  let aliveNeighbors = 0;
-  for (let i = -1; i <= 1; i++) {
-    for (let j = -1; j <= 1; j++) {
-      if (x === 0 && y === 0) {
-        continue;
-      }
-      try {
-        if (actualGrid[x + i][y + j]) {
-          aliveNeighbors++;
+// -------->>> Contar cantidad de vecinos vivos de cada célula <<<--------
+const countAliveNeighbors = (i, j) => {
+  let liveCells = 0;
+  for (let x = -1; x <= 1; x++) {
+    for (let y = -1; y <= 1; y++) {
+      if (i + x >= 0 && i + x < rows && j + y >= 0 && j + y < cols) {
+        if (actualGrid[i + x][j + y]) {
+          liveCells++;
         }
-      } catch (e) {}
-      if (aliveNeighbors > 3) {
-        return aliveNeighbors;
       }
     }
   }
-  return aliveNeighbors;
+  if (actualGrid[i][j]) {
+    liveCells--;
+  }
+  return liveCells;
 };
+
+// -------->>> Determinar el siguiente estado de cada célula <<<--------
+const nextGridStatus = () => {
+  getActualGrid();
+  for (let i = 0; i < rows; i++) {
+    nextGrid.push([]);
+    for (let j = 0; j < cols; j++) {
+      let liveCells = countAliveNeighbors(i, j);
+      if (actualGrid[i][j]) {
+        if (liveCells < 2 || liveCells > 3) {
+          nextGrid[i][j] = false;
+        } else {
+          nextGrid[i][j] = true;
+        }
+      } else {
+        if (liveCells === 3) {
+          nextGrid[i][j] = true;
+        } else {
+          nextGrid[i][j] = false;
+        }
+      }
+    }
+  }
+  actualGrid = nextGrid;
+  renderGrid();
+};
+
+// -------->>> Mostrar próximo grid <<<--------
+const renderGrid = () => {
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      let cell = document.querySelector(`#cell-${i}-${j}`);
+      if (actualGrid[i][j]) {
+        cell.style.background = "black";
+      } else {
+        cell.style.background = "";
+      }
+    }
+  }
+};
+
+generateGrid();
