@@ -2,8 +2,7 @@
 
 ## Game of life
 
-Program the game of life.<br>
-The universe of the Game of Life is an infinite, two-dimensional orthogonal grid of square cells, each of which is in one of two possible states: live or dead. Every cell interacts with its eight neighbours, which are the cells that are horizontally, vertically, or diagonally adjacent. At each step in time, the following transitions occur:
+Program the game of life. The universe of the Game of Life is an infinite, two-dimensional orthogonal grid of square cells, each of which is in one of two possible states: live or dead. Every cell interacts with its eight neighbours, which are the cells that are horizontally, vertically, or diagonally adjacent. At each step in time, the following transitions and rules have to be met:
 
 ### Rules.
 
@@ -14,11 +13,14 @@ The universe of the Game of Life is an infinite, two-dimensional orthogonal grid
 ### Requirements.
 
 - BEM Methodology.
-- Jest _(code testing)._
-- Husky _(git hooks)._
+- Jest testing.
+- Husky hooks.
 - GitHub Actions.
-- Deploy your code on Netlify/Vercel for a demo.
-- Create SonarCloud for repository _(tests code level)._
+- Deploy repository on Netlify.
+- Upload repository to SonarCloud.
 - Protect main branch:
-  - You can't push without pull request.
-  - You can't push if checks haven't passed.
+  - Can't push without pull request.
+  - Can't push if checks haven't passed.
+
+[Production site (click)](https://202301-w2chwe-joaquin-godoy.netlify.app/)
+[SonarCloud (click)](https://sonarcloud.io/project/configuration?id=JoaccoG_202301-w2chwe-joaquin-godoy)
