@@ -23,4 +23,4 @@ Program the game of life. The universe of the Game of Life is an infinite, two-d
   - Can't push if checks haven't passed.
 
 [Production site (click)](https://202301-w2chwe-joaquin-godoy.netlify.app/) <br>
-[SonarCloud (click)](https://sonarcloud.io/project/configuration?id=JoaccoG_202301-w2chwe-joaquin-godoy)
+[SonarCloud (click)](https://sonarcloud.io/summary/new_code?id=JoaccoG_202301-w2chwe-joaquin-godoy)

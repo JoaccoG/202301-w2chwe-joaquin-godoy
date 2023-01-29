@@ -7,36 +7,41 @@ let actualGrid = [];
 let nextGrid = [];
 
 let intervalId;
+let playing = false;
 
-// -------->>> Eventos <<<--------
-// ---> Avanzar 1 generación con right arrow <---
-document.addEventListener("keydown", (e) => {
-  e.preventDefault();
-  switch (e.key) {
-    case "ArrowRight":
-      nextGridStatus();
-      break;
-  }
-});
+let generation = 0;
 
-// ---> Funcionalidad botones <---
-let startButton = document.querySelector(".button__start");
-let stopButton = document.querySelector(".button__stop");
-let randomButton = document.querySelector(".button__random");
-let clearButton = document.querySelector(".button__clear");
+// -------->>> Contador de generaciones <<<--------
+let generationCounter = document.querySelector(".game__generations-counter");
+
+// -------->>> Funcionalidad botones <<<--------
+let startButton = document.querySelector(".game-btn__start");
+let stopButton = document.querySelector(".game-btn__stop");
+let randomButton = document.querySelector(".game-btn__random");
+let clearButton = document.querySelector(".game-btn__clear");
 
 startButton.addEventListener("click", () => {
-  intervalId = setInterval(nextGridStatus, 50);
+  if (!playing) {
+    intervalId = setInterval(nextGridStatus, 100);
+    playing = true;
+  }
 });
 stopButton.addEventListener("click", () => {
   clearInterval(intervalId);
+  playing = false;
 });
 randomButton.addEventListener("click", () => {
   clearInterval(intervalId);
+  playing = false;
+  generation = -1;
+  updateGeneration();
   randomGrid();
 });
 clearButton.addEventListener("click", () => {
   clearInterval(intervalId);
+  playing = false;
+  generation = -1;
+  updateGeneration();
   clearGrid();
 });
 
@@ -52,7 +57,7 @@ const generateGrid = () => {
     grid += "</tr>";
   }
   grid += "</table>";
-  let gridContainer = document.querySelector(".grid__container");
+  let gridContainer = document.querySelector(".game__grid-container");
   gridContainer.innerHTML = grid;
 
   let gridTable = document.querySelector(".grid__table");
@@ -142,6 +147,7 @@ const renderGrid = () => {
       }
     }
   }
+  updateGeneration();
 };
 
 // -------->>> Limpiar grid (clear btn) <<<--------
@@ -167,6 +173,12 @@ const randomGrid = () => {
       }
     }
   }
+};
+
+// -------->>> Actualizar contador de generaciones <<<--------
+const updateGeneration = () => {
+  generation++;
+  generationCounter.innerHTML = generation;
 };
 
 generateGrid();
