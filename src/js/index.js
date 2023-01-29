@@ -1,12 +1,15 @@
 // -------->>> Variables globales <<<--------
-let rows = 20;
-let cols = 20;
+let rows = 50;
+let cols = 50;
 const width = 20;
 
 let actualGrid = [];
 let nextGrid = [];
 
+let intervalId;
+
 // -------->>> Eventos <<<--------
+// ---> Avanzar 1 generación con right arrow <---
 document.addEventListener("keydown", (e) => {
   e.preventDefault();
   switch (e.key) {
@@ -14,6 +17,27 @@ document.addEventListener("keydown", (e) => {
       nextGridStatus();
       break;
   }
+});
+
+// ---> Funcionalidad botones <---
+let startButton = document.querySelector(".button__start");
+let stopButton = document.querySelector(".button__stop");
+let randomButton = document.querySelector(".button__random");
+let clearButton = document.querySelector(".button__clear");
+
+startButton.addEventListener("click", () => {
+  intervalId = setInterval(nextGridStatus, 50);
+});
+stopButton.addEventListener("click", () => {
+  clearInterval(intervalId);
+});
+randomButton.addEventListener("click", () => {
+  clearInterval(intervalId);
+  randomGrid();
+});
+clearButton.addEventListener("click", () => {
+  clearInterval(intervalId);
+  clearGrid();
 });
 
 // -------->>> Generar tablero <<<--------
@@ -112,6 +136,31 @@ const renderGrid = () => {
     for (let j = 0; j < cols; j++) {
       let cell = document.querySelector(`#cell-${i}-${j}`);
       if (actualGrid[i][j]) {
+        cell.style.background = "black";
+      } else {
+        cell.style.background = "";
+      }
+    }
+  }
+};
+
+// -------->>> Limpiar grid (clear btn) <<<--------
+const clearGrid = () => {
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      let cell = document.querySelector(`#cell-${i}-${j}`);
+      cell.style.background = "";
+    }
+  }
+};
+
+// -------->>> Generar grid random (random btn) <<<--------
+const randomGrid = () => {
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      let cell = document.querySelector(`#cell-${i}-${j}`);
+      let randomNumber = Math.floor(Math.random() * 2);
+      if (randomNumber == 1) {
         cell.style.background = "black";
       } else {
         cell.style.background = "";
