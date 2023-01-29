@@ -13,14 +13,20 @@
 
 <body>
 
-  <section class="game__buttons">
-    <button class="button__start">Start</button>
-    <button class="button__stop">Stop</button>
-    <button class="button__random">Random</button>
-    <button class="button__clear">Clear</button>
+  <section class="home__container">
+
   </section>
 
-  <section class="grid__container"></section>
+  <section class="game__container">
+    <div class="game__buttons">
+      <button class="game-btn__start">Start</button>
+      <button class="game-btn__stop">Stop</button>
+      <button class="game-btn__random">Random</button>
+      <button class="game-btn__clear">Clear</button>
+    </div>
+    <p>Generation: <span class="game__generations-counter">0</span></p>
+    <div class="game__grid-container"></div>
+  </section>
 
   <script src="./src/js/index.js"></script>
 </body>
