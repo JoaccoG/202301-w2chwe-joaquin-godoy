@@ -1,0 +1,11 @@
+export { generateGrid } from "./index.js";
+export { changeCellStatus } from "./index.js";
+export { getActualGrid } from "./index.js";
+export { countAliveNeighbors } from "./index.js";
+export { nextGridStatus } from "./index.js";
+export { renderGrid } from "./index.js";
+export { clearGrid } from "./index.js";
+export { randomGrid } from "./index.js";
+export { updateGeneration } from "./index.js";
+export { switchVisibleSections } from "./index.js";
+export { loadTemplate } from "./index.js";

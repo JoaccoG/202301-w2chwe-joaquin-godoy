@@ -22,7 +22,7 @@ let loadGrid = document.querySelector(".form__load-btn");
 
 startButton.addEventListener("click", () => {
   if (!playing) {
-    intervalId = setInterval(nextGridStatus, 150);
+    intervalId = setInterval(nextGridStatus, 125);
     playing = true;
   }
 });
@@ -254,3 +254,5 @@ export const printTemplate = (ids) => {
     cell.style.background = "white";
   });
 };
+
+window.changeCellStatus = changeCellStatus;
