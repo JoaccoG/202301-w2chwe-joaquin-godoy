@@ -22,7 +22,7 @@ let loadGrid = document.querySelector(".form__load-btn");
 
 startButton.addEventListener("click", () => {
   if (!playing) {
-    intervalId = setInterval(nextGridStatus, 150);
+    intervalId = setInterval(nextGridStatus, 125);
     playing = true;
   }
 });
@@ -58,7 +58,7 @@ loadGrid.addEventListener("click", () => {
 });
 
 // -------->>> Generar tablero <<<--------
-const generateGrid = () => {
+export const generateGrid = () => {
   let grid = "<table cellpadding=0 cellspacing=0 class='grid__table'>";
   for (let i = 0; i < rows; i++) {
     grid += "<tr>";
@@ -74,7 +74,7 @@ const generateGrid = () => {
 };
 
 // -------->>> Cambiar estado de células con click <<<--------
-const changeCellStatus = (i, j) => {
+export const changeCellStatus = (i, j) => {
   let cell = document.querySelector(`#cell-${i}-${j}`);
   if (cell.style.background !== "white") {
     cell.style.background = "white";
@@ -84,7 +84,7 @@ const changeCellStatus = (i, j) => {
 };
 
 // -------->>> Obtener el tablero actual <<<--------
-const getActualGrid = () => {
+export const getActualGrid = () => {
   actualGrid = [];
   for (let i = 0; i < rows; i++) {
     actualGrid.push([]);
@@ -100,7 +100,7 @@ const getActualGrid = () => {
 };
 
 // -------->>> Contar cantidad de vecinos vivos de cada célula <<<--------
-const countAliveNeighbors = (i, j) => {
+export const countAliveNeighbors = (i, j) => {
   let liveCells = 0;
   for (let x = -1; x <= 1; x++) {
     for (let y = -1; y <= 1; y++) {
@@ -118,7 +118,7 @@ const countAliveNeighbors = (i, j) => {
 };
 
 // -------->>> Determinar el siguiente estado de cada célula <<<--------
-const nextGridStatus = () => {
+export const nextGridStatus = () => {
   getActualGrid();
   for (let i = 0; i < rows; i++) {
     nextGrid.push([]);
@@ -144,7 +144,7 @@ const nextGridStatus = () => {
 };
 
 // -------->>> Mostrar próximo grid <<<--------
-const renderGrid = () => {
+export const renderGrid = () => {
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
       let cell = document.querySelector(`#cell-${i}-${j}`);
@@ -159,7 +159,7 @@ const renderGrid = () => {
 };
 
 // -------->>> Limpiar grid (clear btn) <<<--------
-const clearGrid = () => {
+export const clearGrid = () => {
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
       let cell = document.querySelector(`#cell-${i}-${j}`);
@@ -169,7 +169,7 @@ const clearGrid = () => {
 };
 
 // -------->>> Generar grid random (random btn) <<<--------
-const randomGrid = () => {
+export const randomGrid = () => {
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
       let cell = document.querySelector(`#cell-${i}-${j}`);
@@ -184,13 +184,13 @@ const randomGrid = () => {
 };
 
 // -------->>> Actualizar contador de generaciones <<<--------
-const updateGeneration = () => {
+export const updateGeneration = () => {
   generation++;
   generationCounter.innerHTML = generation;
 };
 
 // -------->>> Esconder home y mostrar game <<<--------
-const switchVisibleSections = () => {
+export const switchVisibleSections = () => {
   document.querySelector(".home__container").style.display = "none";
   document.querySelector(".game__container").style.display = "block";
 };
@@ -205,7 +205,7 @@ templateButton.addEventListener("click", () => {
   loadTemplate();
   startButton.click();
 });
-const loadTemplate = () => {
+export const loadTemplate = () => {
   rows = 40;
   cols = 50;
   generateGrid();
@@ -248,9 +248,11 @@ const loadTemplate = () => {
     "cell-11-14",
   ]);
 };
-const printTemplate = (ids) => {
+export const printTemplate = (ids) => {
   ids.forEach((id) => {
     let cell = document.getElementById(id);
     cell.style.background = "white";
   });
 };
+
+window.changeCellStatus = changeCellStatus;
