@@ -194,3 +194,63 @@ const switchVisibleSections = () => {
   document.querySelector(".home__container").style.display = "none";
   document.querySelector(".game__container").style.display = "block";
 };
+
+// -------->>> Template 'gosper glider gun' <<<--------
+let templateButton = document.querySelector(".gambe-btn__template");
+templateButton.addEventListener("click", () => {
+  clearInterval(intervalId);
+  playing = false;
+  generation = -1;
+  updateGeneration();
+  loadTemplate();
+  startButton.click();
+});
+const loadTemplate = () => {
+  rows = 40;
+  cols = 50;
+  generateGrid();
+  printTemplate([
+    "cell-3-25",
+    "cell-4-23",
+    "cell-4-25",
+    "cell-5-13",
+    "cell-5-14",
+    "cell-5-21",
+    "cell-5-22",
+    "cell-5-35",
+    "cell-5-36",
+    "cell-6-12",
+    "cell-6-16",
+    "cell-6-21",
+    "cell-6-22",
+    "cell-6-35",
+    "cell-6-36",
+    "cell-7-1",
+    "cell-7-2",
+    "cell-7-11",
+    "cell-7-17",
+    "cell-7-21",
+    "cell-7-22",
+    "cell-8-1",
+    "cell-8-2",
+    "cell-8-11",
+    "cell-8-15",
+    "cell-8-17",
+    "cell-8-18",
+    "cell-8-23",
+    "cell-8-25",
+    "cell-9-11",
+    "cell-9-17",
+    "cell-9-25",
+    "cell-10-12",
+    "cell-10-16",
+    "cell-11-13",
+    "cell-11-14",
+  ]);
+};
+const printTemplate = (ids) => {
+  ids.forEach((id) => {
+    let cell = document.getElementById(id);
+    cell.style.background = "white";
+  });
+};
