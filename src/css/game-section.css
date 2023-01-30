@@ -14,7 +14,8 @@
 .game-btn__start,
 .game-btn__stop,
 .game-btn__random,
-.game-btn__clear {
+.game-btn__clear,
+.gambe-btn__template {
   display: block;
   border: none;
   border-radius: 0.8rem;
@@ -29,9 +30,15 @@
 .game-btn__start:hover,
 .game-btn__stop:hover,
 .game-btn__random:hover,
-.game-btn__clear:hover {
+.game-btn__clear:hover,
+.gambe-btn__template {
   background-color: hsl(214, 100%, 97%);
   color: hsl(25, 97%, 53%);
+  cursor: pointer;
+}
+.gambe-btn__template:hover {
+  background-color: hsl(25, 97%, 53%);
+  color: hsl(214, 100%, 97%);
   cursor: pointer;
 }
 
