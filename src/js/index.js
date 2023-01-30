@@ -1,7 +1,6 @@
 // -------->>> Variables globales <<<--------
-let rows = 50;
-let cols = 50;
-const width = 20;
+let rows;
+let cols;
 
 let actualGrid = [];
 let nextGrid = [];
@@ -19,10 +18,11 @@ let startButton = document.querySelector(".game-btn__start");
 let stopButton = document.querySelector(".game-btn__stop");
 let randomButton = document.querySelector(".game-btn__random");
 let clearButton = document.querySelector(".game-btn__clear");
+let loadGrid = document.querySelector(".form__load-btn");
 
 startButton.addEventListener("click", () => {
   if (!playing) {
-    intervalId = setInterval(nextGridStatus, 100);
+    intervalId = setInterval(nextGridStatus, 150);
     playing = true;
   }
 });
@@ -44,6 +44,18 @@ clearButton.addEventListener("click", () => {
   updateGeneration();
   clearGrid();
 });
+loadGrid.addEventListener("click", () => {
+  rows = document.querySelector("#rows").value;
+  cols = document.querySelector("#cols").value;
+  if (rows > 100) {
+    rows = 100;
+  }
+  if (cols > 100) {
+    cols = 100;
+  }
+  switchVisibleSections();
+  generateGrid();
+});
 
 // -------->>> Generar tablero <<<--------
 const generateGrid = () => {
@@ -59,17 +71,13 @@ const generateGrid = () => {
   grid += "</table>";
   let gridContainer = document.querySelector(".game__grid-container");
   gridContainer.innerHTML = grid;
-
-  let gridTable = document.querySelector(".grid__table");
-  gridTable.style.height = width * rows + "px";
-  gridTable.style.width = width * cols + "px";
 };
 
 // -------->>> Cambiar estado de células con click <<<--------
 const changeCellStatus = (i, j) => {
   let cell = document.querySelector(`#cell-${i}-${j}`);
-  if (cell.style.background !== "black") {
-    cell.style.background = "black";
+  if (cell.style.background !== "white") {
+    cell.style.background = "white";
   } else {
     cell.style.background = "";
   }
@@ -82,7 +90,7 @@ const getActualGrid = () => {
     actualGrid.push([]);
     for (let j = 0; j < cols; j++) {
       let cell = document.querySelector(`#cell-${i}-${j}`);
-      if (cell.style.background === "black") {
+      if (cell.style.background === "white") {
         actualGrid[i][j] = true;
       } else {
         actualGrid[i][j] = false;
@@ -141,7 +149,7 @@ const renderGrid = () => {
     for (let j = 0; j < cols; j++) {
       let cell = document.querySelector(`#cell-${i}-${j}`);
       if (actualGrid[i][j]) {
-        cell.style.background = "black";
+        cell.style.background = "white";
       } else {
         cell.style.background = "";
       }
@@ -167,7 +175,7 @@ const randomGrid = () => {
       let cell = document.querySelector(`#cell-${i}-${j}`);
       let randomNumber = Math.floor(Math.random() * 2);
       if (randomNumber == 1) {
-        cell.style.background = "black";
+        cell.style.background = "white";
       } else {
         cell.style.background = "";
       }
@@ -181,4 +189,8 @@ const updateGeneration = () => {
   generationCounter.innerHTML = generation;
 };
 
-generateGrid();
+// -------->>> Esconder home y mostrar game <<<--------
+const switchVisibleSections = () => {
+  document.querySelector(".home__container").style.display = "none";
+  document.querySelector(".game__container").style.display = "block";
+};

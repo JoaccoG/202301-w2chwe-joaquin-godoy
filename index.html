@@ -5,26 +5,66 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="./src/assets/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="./src/assets/favicon.png">
   <link rel="stylesheet" href="./src/css/style.css">
-  <link rel="stylesheet" href="./src/css/table.css">
-  <title>The Game of Life</title>
+  <link rel="stylesheet" href="./src/css/home-section.css">
+  <link rel="stylesheet" href="./src/css/game-section.css">
+  <title>Conway's Game of Life</title>
 </head>
 
 <body>
 
   <section class="home__container">
-
+    <div class="home__description">
+      <h1 class="home__title">Conway's Game of Life.</h1>
+      <p>
+        The Game of Life, also known simply as Life, is a cellular automaton devised by the British mathematician John
+        Horton Conway in 1970. It is a zero-player game, meaning that it's evolution is determined by its initial state,
+        requiring no further input. One interacts with the Game of Life by creating an initial configuration and
+        observing how it evolves. It is Turing complete and can simulate a universal constructor or any other Turing
+        machine.
+      </p>
+    </div>
+    <div class="home__rules">
+      <h2 class="home__subtitle">Rules of evolution.</h2>
+      <p>
+        The universe of the Game of Life is an infinite, two-dimensional orthogonal grid of square cells, each of which
+        is in one of two possible states, live or dead. Every cell interacts with its eight neighbours, which are the
+        cells that are horizontally, vertically, or diagonally adjacent. At each step in time, the following transitions
+        occur:
+      </p>
+      <ol class="rules__list">
+        <li>- Any alive cell with fewer than two live neighbours dies, as if by underpopulation.</li>
+        <li>- Any alive cell with more than three live neighbours dies, as if by overpopulation.</li>
+        <li>- Any alive cell with two or three live neighbours lives on to the next generation.</li>
+        <li>- Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.</li>
+      </ol>
+    </div>
+    <div class="home__form">
+      <h2 class="home__subtitle">Generate grid.</h2>
+      <p>Choose a number of rows and columns for the game grid.</p>
+      <form action="#">
+        <label for="rows">
+          Rows
+          <input id="rows" type="number" min="3" max="100" value="20">
+        </label>
+        <label for="cols">
+          Columns
+          <input id="cols" type="number" min="3" max="100" value="20">
+        </label>
+        <button type="button" class="form__load-btn">Load grid</button>
+      </form>
+    </div>
   </section>
 
-  <section class="game__container">
+  <section class="game__container" style="display: none;">
     <div class="game__buttons">
       <button class="game-btn__start">Start</button>
       <button class="game-btn__stop">Stop</button>
       <button class="game-btn__random">Random</button>
       <button class="game-btn__clear">Clear</button>
     </div>
-    <p>Generation: <span class="game__generations-counter">0</span></p>
+    <p class="game__counter">Generation: <span class="game__generations-counter">0</span></p>
     <div class="game__grid-container"></div>
   </section>
 
